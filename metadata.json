@@ -1,0 +1,6 @@
+{
+  "name": "electrobolt.electro",
+  "description": "Intelligent electrical and electronic product shopping advisor for electrobolt.electro catalogue discovery, comparisons, and recommendations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
