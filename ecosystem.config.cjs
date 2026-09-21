@@ -3,11 +3,17 @@
  * Used for Hostinger VPS, Hostinger Cloud, or Hostinger Node.js Selector.
  */
 
+const fs = require('fs');
+
+const scriptPath = fs.existsSync('./server.js')
+  ? './server.js'
+  : (fs.existsSync('./dist/server.cjs') ? './dist/server.cjs' : './server.cjs');
+
 module.exports = {
   apps: [
     {
       name: 'electrobolt-electro-advisor',
-      script: './dist/server.cjs',
+      script: scriptPath,
       instances: 'max',
       exec_mode: 'cluster',
       autorestart: true,

@@ -51,19 +51,20 @@ Visit your domain in any browser:
 
 ---
 
-## ⚙️ Method 2: Hostinger Node.js Application (hPanel Node.js Selector)
-*For Hostinger plans with built-in Node.js support (Business & Cloud plans).*
+## ⚙️ Method 2: Hostinger Node.js Application (hPanel Node.js Selector & Git Deploy)
+*For Hostinger plans with Node.js support (Cloud, Business, VPS, or Hostinger Git Deployment).*
 
-1. In Hostinger hPanel, search for **Node.js** in the left search bar.
-2. Click **Create Application**:
-   - **Node.js version**: Select `18.x` or `20.x`.
-   - **Application root**: `/home/username/public_html` (or a dedicated folder).
-   - **Application startup file**: `server.cjs`
-3. Upload all files from `hostinger-package/` to the Application root.
-4. In the Node.js settings panel, add the Environment Variable:
-   - Name: `GEMINI_API_KEY`
-   - Value: `your_gemini_api_key`
-5. Click **Run NPM Install** (if needed) and click **Restart**.
+### Configuration Parameters:
+- **Node.js version**: `18.x`, `20.x`, or `22.x`
+- **Application root**: Path where files are placed (e.g., `/home/u123456789/public_html` or `/domains/yourdomain.com/public_html`)
+- **Application startup file / Entry File**: **`server.js`**
+  *(A universal `server.js` entry point is provided at the root and in `dist/`. It automatically resolves and launches the production Express server seamlessly).*
+- **Build Command**: `npm run build`
+- **Output Directory**: Leave empty or set to `dist` (Since Express serves its own compiled static files directly from `dist`, the backend handles routing).
+- **Run NPM Install**: Click **Run NPM Install** (or run `npm install`)
+- **Environment Variables**:
+  - `GEMINI_API_KEY`: your Gemini API key (optional, for AI generation)
+  - `PORT`: set by Hostinger automatically, or defaults to 3000
 
 ---
 

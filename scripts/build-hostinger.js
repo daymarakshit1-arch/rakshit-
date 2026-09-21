@@ -45,8 +45,27 @@ function copyDir(src, dest) {
   }
 }
 
-// Copy dist contents (index.html, assets, .htaccess, api/ directory)
+// Copy dist contents (index.html, assets, .htaccess, api/ directory, server.cjs, server.js)
 copyDir(distDir, packageDir);
+
+// Explicitly ensure root server.js is in the package
+if (fs.existsSync(path.join(rootDir, 'server.js'))) {
+  fs.copyFileSync(path.join(rootDir, 'server.js'), path.join(packageDir, 'server.js'));
+}
+
+// Generate a clean production package.json for Hostinger Node.js Selector
+const rootPkg = JSON.parse(fs.readFileSync(path.join(rootDir, 'package.json'), 'utf8'));
+const prodPkg = {
+  name: rootPkg.name || 'electrobolt-electro',
+  version: rootPkg.version || '1.0.0',
+  type: 'module',
+  main: 'server.js',
+  scripts: {
+    start: 'node server.js',
+  },
+  dependencies: rootPkg.dependencies || {},
+};
+fs.writeFileSync(path.join(packageDir, 'package.json'), JSON.stringify(prodPkg, null, 2), 'utf8');
 
 // Copy .env.example
 if (fs.existsSync(path.join(rootDir, '.env.example'))) {
